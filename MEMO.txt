@@ -1,0 +1,8 @@
+npm i -S axios ejs express mysql2 reflect-metadata typeorm
+
+npm i -D @types/express @types/node cross-env ts-node-dev tsconfig-paths typescript dotenv dotenv-expand
+
+
+typeorm-model-generator -h localhost -p 13307 -d testdb -u root -x test -e mysql -o ./src/entityGen
+
+test cicd

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%=title%>
+    </title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <div class="welcome">
+        Hello World ~
+    </div>
+    <hr>
+    <input type="button" id="lineLoginBtn"
+        style="background-image:url('/public/img/btn_login_base.png');width:151px;height:44px;border: none;cursor: pointer;">
+    <script>
+        (function () {
+            const lineLoginBtn = document.getElementById('lineLoginBtn');
+            lineLoginBtn.onclick = function () {
+                let client_id = '<%=CHANNEL_ID%>';
+                let redirect_uri = '<%=CALLBACK_URL%>';
+                let link = 'https://access.line.me/oauth2/v2.1/authorize?';
+                link += 'response_type=code';
+                link += '&client_id=' + client_id;
+                link += '&redirect_uri=' + redirect_uri;
+                link += '&state=login';
+                link += '&scope=profile%20openid%20email';
+                window.location.href = link;
+            };
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE liff full</title>
+    <script charset="utf-8" crossorigin="anonymous" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+    <div id="noview" style="display: none;">
+        請在LINE中開啟
+    </div>
+    <div id="view" style="display: none;">
+        LINE liff full...
+        <hr>
+        <button id="btnTest">CLICK TEST</button>
+        <div id="result">result...</div>
+    </div>
+    <script>
+        (function() {
+            const btnTest = document.getElementById('btnTest');
+            const result = document.getElementById('result');
+            
+            const view = document.getElementById('view');
+            const noview = document.getElementById('noview');
+
+            liff.init({ liffId: '<%=LIFF_ID%>' }).then(() => {
+                main();
+            }).catch((err) => {
+                console.log(err);
+            })
+
+            function main() {
+                const idToken = liff.getDecodedIDToken();
+                if (!idToken) {
+                    noview.style.display = 'block';
+                    return;
+                }
+
+                view.style.display = 'block';
+                const context = liff.getContext();
+
+                btnTest.onclick = function() {
+                    result.innerHTML = idToken.name + ' / ' + idToken.sub;
+                    // result.innerHTML = context.userId + ' / ' + context.utouId + ' / ' + context.roomId + ' / ' + context.groupId;
+                    // const profile = liff.getProfile();
+                    // result.innerHTML = profile.displayName + ' / ' + profile.userId;
+                };
+            }
+        })();
+    </script>
+</body>
+</html>

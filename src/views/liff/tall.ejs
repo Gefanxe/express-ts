@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE liff tall</title>
+    <script charset="utf-8" crossorigin="anonymous" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
+<body>
+    <div id="view" style="display: none;">
+        LINE liff tall
+        <hr>
+        <button id="btnTest">CLICK TEST</button>
+        <div id="result">result...</div>
+        <button id="btnLogin">CLICK Login</button>
+        <hr>
+        <button id="btnDecoded">CLICK get Decoded ID</button>
+        <div id="resultDecoded">decoded result...</div>
+    </div>
+    <script>
+        (function() {
+            const btnTest = document.getElementById('btnTest');
+            const btnLogin = document.getElementById('btnLogin');
+            const btnDecoded = document.getElementById('btnDecoded');
+
+            const result = document.getElementById('result');
+            const resultDecoded = document.getElementById('resultDecoded');
+            const view = document.getElementById('view');
+
+            liff.init({ liffId: '<%=LIFF_ID%>' }).then(() => {
+                view.style.display = 'block';
+            });
+
+            btnTest.onclick = function() {
+                result.innerHTML = window.location.href;
+            };
+
+            btnLogin.onclick = function() {
+                liff.login();
+            };
+
+            btnDecoded.onclick = function() {
+                const idToken = liff.getDecodedIDToken();
+                resultDecoded.innerHTML = JSON.stringify(idToken, null, 4);
+            };
+        })();
+    </script>
+</body>
+</html>

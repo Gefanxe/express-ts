@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/bootstrap_v5.3.1.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-icons.min.css">
+
+    <title>Document</title>
+    <script src="/assets/js/jquery_v3.7.0.min.js"></script>
+    <script src="/assets/js/bootstrap_v5.3.1.bundle.min.js"></script>
+    <script charset="utf-8" crossorigin="anonymous" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        $(function () {
+            function main() {
+                const idToken = liff.getDecodedIDToken();
+
+                $('#pageLoading').hide();
+
+                if (!idToken) return $('#noview').show();
+
+                const _accessToken = liff.getAccessToken();
+                $('#view').addClass('d-flex flex-column vh-100');
+                $('button').on('click', function (e) {
+                    const btn = $(this);
+                    const _id = btn.data('id');
+                    btn.prop('disabled', !btn.is(':disabled'));
+                    const spinner = btn.find('.spinner-border');
+                    spinner.toggle();
+                    $.ajax({
+                        cache: false,
+                        type: 'POST',
+                        url: '/epilepsy/save',
+                        data: {
+                            accessToken: _accessToken,
+                            pId: _id
+                        }
+                    }).done(function (data) {
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log('error');
+                    }).always(function (jqXHR, textStatus, jqXHROrerrorThrown) {
+                        btn.prop('disabled', !btn.is(':disabled'));
+                        spinner.toggle();
+                    });
+                });
+            }
+
+            liff.init({ liffId: '<%=LIFF_ID%>' }).then(() => {
+                main();
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        });
+    </script>
+</head>
+
+<body class="d-flex flex-column vh-100">
+    <div id="pageLoading">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div id="noview" style="display: none;">
+        請在LINE中開啟
+    </div>
+    <div id="view" style="display: none;">
+        <header class="navbar navbar-expand-lg bd-navbar sticky-top navbar-dark bg-dark">
+            <!-- Fixed navbar -->
+            <nav>
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Fixed navbar</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Begin page content -->
+        <main class="container-fluid text-center d-flex flex-column flex-grow-1">
+            <div class="d-flex justify-content-around flex-column flex-grow-1">
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-warning btn-lg" data-id="1">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        脖子
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-success btn-lg" data-id="2">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左肩膀
+                    </button>
+                    <button type="button" class="btn btn-success btn-lg" data-id="3">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右肩膀
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-success btn-lg" data-id="4">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左上臂
+                    </button>
+                    <button type="button" class="btn btn-success btn-lg" data-id="5">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右上臂
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-success btn-lg" data-id="6">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左前臂
+                    </button>
+                    <button type="button" class="btn btn-success btn-lg" data-id="7">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右前臂
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-success btn-lg" data-id="8">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左腕
+                    </button>
+                    <button type="button" class="btn btn-success btn-lg" data-id="9">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右腕
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-success btn-lg" data-id="10">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左手指
+                    </button>
+                    <button type="button" class="btn btn-success btn-lg" data-id="11">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右手指
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-secondary btn-lg" data-id="12">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左屁股
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-lg" data-id="13">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右屁股
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-primary btn-lg" data-id="14">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左大腿
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-id="15">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右大腿
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-primary btn-lg" data-id="16">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左小腿
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-id="17">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右小腿
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-primary btn-lg" data-id="18">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左腳踝
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-id="19">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右腳踝
+                    </button>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button type="button" class="btn btn-primary btn-lg" data-id="20">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        左腳指
+                    </button>
+                    <button type="button" class="btn btn-primary btn-lg" data-id="21">
+                        <span class="spinner-border spinner-border-sm" style="display: none;"></span>
+                        右腳指
+                    </button>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+
+</body>
+
+</html>

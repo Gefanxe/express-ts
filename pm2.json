@@ -1,0 +1,24 @@
+[
+    {
+        "name": "todo_api",
+        "script": "/apps/express-ts/app.js",
+        "interpreter": "/home/node/.bun/bin/bun",
+        "shutdown_with_message": true,
+        "exec_mode": "fork",
+        "max_restarts": 10,
+        "watch": false,
+        "max_memory_restart": "300M",
+        "log_date_format": "YYYY-MM-DD HH:mm Z",
+        "out_file": "./logs/out.log",
+        "error_file": "./logs/err.log",
+        "merge_logs": true,
+        "env": {
+            "SERVICE_PORT": "3000",
+            "DATABASE_HOST": "mysql",
+            "DATABASE_PORT": "3306",
+            "DATABASE_USER": "root",
+            "DATABASE_PASS": "test",
+            "DATABASE_NAME": "testdb"
+        }
+    }
+]
